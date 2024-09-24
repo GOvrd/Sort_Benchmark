@@ -1,13 +1,20 @@
 #pragma once
 #include <iostream>
 #include <fstream>
+
+#define SRC_FILE_PATH "src.txt"
+
 void file_fill(std::string filename, int number) {
+	std::fstream src_file(SRC_FILE_PATH, std::ios::out);
 	std::fstream file(filename, std::ios::out);
 	srand(time(0));
 	for (int i = 0; i < number; i++) {
-		file << rand() % 10000 - 5000 << " ";
+		int num = rand() % 10000 - 5000;
+		file << num << " ";
+		src_file << num << " ";
 	}
 	file.close();
+	src_file.close();
 }
 bool check(std::string filename) {
 	std::fstream file(filename, std::ios::in);

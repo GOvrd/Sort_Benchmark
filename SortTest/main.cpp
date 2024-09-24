@@ -4,10 +4,12 @@
 #include "Sort.h"
 #include "Other.h"
 
+#define NUMBER_OF_ELEMENT 1000
+
 int main() {
-	std::string filename = "input.txt";
+	std::string filename = "sort_src.txt";
 	std::string result_filename = "result.txt";
-	for (int i = 10; i < 1000000; i = i * 5) {
+	for (int i = NUMBER_OF_ELEMENT; i < NUMBER_OF_ELEMENT + 1; i = i * 5) {
 		std::cout << i << " elements in file\n";
 		std::uint64_t stats[3] = { 0, 0, 0 };
 		double sum = 0.0;
@@ -24,7 +26,10 @@ int main() {
 			time = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::high_resolution_clock::now() - start).count();
 			//if (j == 0) continue;
 			//std::cout << "Check: " << std::boolalpha << check(filename) << "\n";
-			std::cout << "\t" << j + 1 << ". " << time / 1000 << "\t";
+			if (j == 9) 
+				std::cout << "\t" << j + 1 << ". " << time / 1000 << "\t";
+			else
+				std::cout << "\t" << j + 1 << ".  " << time / 1000 << "\t";
 			stats[0] += time / 1000;
 			std::fstream result_file(result_filename, std::ios::in);
 			for (int i = 0; i < 3; i++) {
@@ -39,10 +44,10 @@ int main() {
 			result_file.close();
 		}
 		remove("result.txt");
-		std::cout << "Avg stats: ";
-		std::cout << sum / 10 << "     \t";
+		std::cout << "Avg stats:  ";
+		std::cout << sum / 10 << "   \t";
 		for (int j = 0; j < 3; j++) {
-			std::cout << stats[j] / 10 << "     \t";
+			std::cout << stats[j] / 10 << "       \t";
 		}
 		
 		std::cout << "\n--------------------------------------------------------------\n";
